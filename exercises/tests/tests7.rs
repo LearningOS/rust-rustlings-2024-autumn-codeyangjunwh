@@ -3,7 +3,7 @@
 // When building packages, some dependencies can neither be imported in
 // `Cargo.toml` nor be directly linked; some preprocesses varies from code
 // generation to set-up package-specific configurations.
-//
+
 // Cargo does not aim to replace other build tools, but it does integrate
 // with them with custom build scripts called `build.rs`. This file is
 // usually placed in the root of the project, while in this case the same
@@ -33,8 +33,6 @@
 //
 // Execute `rustlings hint tests7` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
 
 fn main() {}
 
