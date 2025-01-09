@@ -6,6 +6,7 @@
 
 fn sort<T: std::cmp::PartialOrd>(array: &mut [T]) {
     //TODO
+    // 冒泡排序
     for i in 0..array.len() {
         for j in 0..array.len() - 1 - i {
             if array[j] > array[j + 1] {

@@ -44,6 +44,7 @@ where
         let mut child_idx = self.count;
         let mut parent_idx = self.parent_idx(child_idx);
 
+        // 向上看
         while (self.comparator)(&self.items[child_idx], &self.items[parent_idx]) && parent_idx > 0 {
             self.items.swap(child_idx, parent_idx);
             child_idx = parent_idx;
@@ -79,8 +80,10 @@ where
                 &self.items[self.left_child_idx(idx)],
                 &self.items[self.right_child_idx(idx)],
             ) {
+                // 左孩子小就返回左孩子
                 return self.left_child_idx(idx);
             } else {
+                // 右孩子小就返回右孩子
                 return self.right_child_idx(idx);
             }
         }
@@ -115,8 +118,12 @@ where
         if self.count > 0 {
             // 将堆顶元素与最后一个元素交换，并移除最后一个元素
             self.items.swap(1, self.count);
+
             let res = self.items.pop().unwrap();
+
             self.count -= 1;
+
+            // 向下看
             let mut idx = 1;
             let mut may_change_idx = self.smallest_child_idx(idx);
 
@@ -124,10 +131,12 @@ where
             if may_change_idx == 0 {
                 return Some(res);
             }
+
             // 循环直到找到合适的位置或没有子节点
             while (self.comparator)(&self.items[may_change_idx], &self.items[idx]) {
                 // 需要交换当前节点和其最小子节点
                 self.items.swap(may_change_idx, idx);
+
                 idx = may_change_idx;
                 may_change_idx = self.smallest_child_idx(idx);
 

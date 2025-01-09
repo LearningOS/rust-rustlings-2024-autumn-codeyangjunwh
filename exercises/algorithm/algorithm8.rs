@@ -51,13 +51,13 @@ impl<T> Default for Queue<T> {
     }
 }
 
-pub struct myStack<T> {
+pub struct MyStack<T> {
     //TODO
     q1: Queue<T>,
     q2: Queue<T>,
 }
 
-impl<T> myStack<T> {
+impl<T> MyStack<T> {
     pub fn new() -> Self {
         Self {
             //TODO
@@ -81,7 +81,7 @@ impl<T> myStack<T> {
                     return Err("Stack is empty");
                 }
                 // println!("1");
-
+                // 低效算法，先把q1元素出队，放入q2，q1只留下最后1个元素弹出，再把q2元素出队倒腾回q1
                 for _ in 1..self.q1.size() {
                     let x = self.q1.dequeue().unwrap();
                     self.q2.enqueue(x);
@@ -114,7 +114,7 @@ mod tests {
 
     #[test]
     fn test_queue() {
-        let mut s = myStack::<i32>::new();
+        let mut s = MyStack::<i32>::new();
         assert_eq!(s.pop(), Err("Stack is empty"));
         s.push(1);
         s.push(2);

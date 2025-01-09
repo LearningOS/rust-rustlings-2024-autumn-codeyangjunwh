@@ -55,6 +55,7 @@ where
             Some(ref mut root) => {
                 if value < root.value {
                     if let Some(ref mut left) = root.left {
+                        // 这里调用的是node的insert()
                         left.insert(value);
                     } else {
                         // 是叶子节点了
@@ -62,6 +63,7 @@ where
                     }
                 } else if value > root.value {
                     if let Some(ref mut right) = root.right {
+                        // 这里调用的是node的insert()
                         right.insert(value);
                     } else {
                         // 是叶子节点了

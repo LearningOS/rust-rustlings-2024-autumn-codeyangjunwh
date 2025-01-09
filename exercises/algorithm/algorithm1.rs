@@ -46,6 +46,7 @@ impl<T> LinkedList<T> {
 
         let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
 
+        // 添加到链表的尾部（尾插法）
         match self.end {
             None => self.start = node_ptr,
             Some(end_ptr) => unsafe { (*end_ptr.as_ptr()).next = node_ptr },
@@ -62,9 +63,9 @@ impl<T> LinkedList<T> {
     fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
         match node {
             None => None,
-            Some(next_ptr) => match index {
-                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }),
-                _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
+            Some(tmp_next_ptr) => match index {
+                0 => Some(unsafe { &(*tmp_next_ptr.as_ptr()).val }),
+                _ => self.get_ith_node(unsafe { (*tmp_next_ptr.as_ptr()).next }, index - 1),
             },
         }
     }
@@ -75,12 +76,14 @@ impl<T> LinkedList<T> {
     {
         //TODO
         let mut list_c = LinkedList::<T>::new();
+
         let mut node_a = list_a.start;
         let mut node_b = list_b.start;
 
         while node_a.is_some() && node_b.is_some() {
             let node_a_ptr = node_a.unwrap();
             let node_b_ptr = node_b.unwrap();
+
             if unsafe { (*node_a_ptr.as_ptr()).val } < unsafe { (*node_b_ptr.as_ptr()).val } {
                 list_c.add(unsafe { (*node_a_ptr.as_ptr()).val });
                 node_a = unsafe { (*node_a_ptr.as_ptr()).next };
@@ -92,12 +95,14 @@ impl<T> LinkedList<T> {
 
         while node_a.is_some() {
             let node_a_ptr = node_a.unwrap();
+
             list_c.add(unsafe { (*node_a_ptr.as_ptr()).val });
             node_a = unsafe { (*node_a_ptr.as_ptr()).next };
         }
 
         while node_b.is_some() {
             let node_b_ptr = node_b.unwrap();
+
             list_c.add(unsafe { (*node_b_ptr.as_ptr()).val });
             node_b = unsafe { (*node_b_ptr.as_ptr()).next };
         }

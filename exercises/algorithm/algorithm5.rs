@@ -29,7 +29,9 @@ impl Graph {
         //TODO
 
         let mut visit_order = Vec::new();
+
         let mut visited = vec![false; self.adj.len()];
+
         let mut queue = VecDeque::new();
 
         queue.push_back(start);
